@@ -10,7 +10,6 @@ const int button = 2;
 const int buzzer =  9;
 
 uint8_t setalarm = -1;
-uint8_t alarm = -1;
 uint8_t state = 0;
 
 void setup() {
@@ -36,7 +35,7 @@ void loop() {
       if (setalarm == -1) {
         setalarm = 0; //set alarm for midnight
       }
-      else if (alarm == 23) {
+      else if (setalarm == 23) {
         setalarm = 0; //set alarm back to midnight
       }
       else {
@@ -51,15 +50,8 @@ void loop() {
       setalarm = -1;
     }
   }
-
-  if (setalarm == now.hour() && now.minute() == 0 && now.second() == 0) { //don't let alarm be set to now
-      alarm = -1;
-    }
-  else {
-      alarm = setalarm;
-    }
   
-  if (now.hour() == alarm  && now.minute() == 0 && now.second() <= 2) { //set off alarm when hour starts
+  if (now.hour() == setalarm  && now.minute() == 0 && now.second() <= 2) { //set off alarm when hour starts
       state = 1;
   }
 
